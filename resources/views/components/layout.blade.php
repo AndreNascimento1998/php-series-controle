@@ -13,3 +13,6 @@
 {{$slot}}
 </body>
 </html>
+
+<style>
+</style>
