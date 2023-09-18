@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\SeriesController;
+use \App\Http\Controllers\SeasonsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,3 +23,5 @@ Route::resource('/series', SeriesController::class)
 
 Route::delete('/series/destroy/{id}', [SeriesController::class, 'destroy'])
     ->name('series.destroy');
+
+    Route::get('series/{series}/seasons', [SeasonsController::class, 'index'])->name('seasons.index');
