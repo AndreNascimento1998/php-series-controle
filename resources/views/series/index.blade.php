@@ -13,11 +13,15 @@
             @foreach ($series as $serie)
                 <div class="listButton">
                     <li class="semEstilo" style="width: 80%"> {{ $serie->nome }} </li>
-                    <form action="{{route('series.destroy', $serie->id)}}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button class="buttonDelete">X</button>
-                    </form>
+                    <section style="display: flex">
+                        <a class="buttonDelete" href="{{route('series.edit', $serie->id)}}">Edit</a>
+
+                        <form action="{{route('series.destroy', $serie->id)}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button class="buttonDelete">X</button>
+                        </form>
+                    </section>
                 </div>
             @endforeach
         </div>

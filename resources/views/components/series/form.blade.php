@@ -1,6 +1,19 @@
-<x-layout title="Séries">
-    <x-series.form :action="route('series.store')" :nome="old('nome')" :update="false" />
-</x-layout>
+ <form action="{{ $action }}" method="post">
+    @csrf
+     @if($update)
+         @method('PUT')
+     @endif
+    <label for="nome">Nome</label>
+    <input
+        type="text"
+        id="nome"
+        name="nome"
+        class="meu-input"
+        @isset($nome)value="{{$nome}}"@endisset
+    >
+    <button type="submit" class="buttonAdd">Adicionar</button>
+</form>
+
 <style>
     .meu-input {
         background-color: #f0f0f0;
