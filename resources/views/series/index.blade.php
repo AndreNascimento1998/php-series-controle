@@ -1,11 +1,24 @@
 <x-layout title="Séries">
     <div class="button">
-        <a href="/series/criar" class="buttonAdd">Adicionar</a>
+        <a href="{{route('series.create')}}" class="buttonAdd">Adicionar</a>
+
+        @isset($messagemSucesso)
+        <div>
+            {{$messagemSucesso}}
+        </div>
+        @endisset
     </div>
     <div class="container">
         <div class="list">
             @foreach ($series as $serie)
-                <li class="semEstilo"> {{ $serie->nome }} </li>
+                <div class="listButton">
+                    <li class="semEstilo" style="width: 80%"> {{ $serie->nome }} </li>
+                    <form action="{{route('series.destroy', $serie->id)}}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button class="buttonDelete">X</button>
+                    </form>
+                </div>
             @endforeach
         </div>
     </div>
@@ -14,6 +27,28 @@
 <style>
     a {
         text-decoration: none;
+    }
+
+    .listButton {
+        display: flex;
+    }
+
+    .buttonDelete {
+        margin-left: 2px;
+        background-color: #fff;
+        color: #e30c0c;
+        border: 2px solid #e30c0c;
+        padding: 10px 16px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .buttonDelete:hover {
+        background-color: #e30c0c;
+        color: #ffffff;
+        border: none;
+        padding: 12px 18px;
     }
 
     .buttonAdd {
@@ -52,6 +87,7 @@
         display: flex;
         flex-direction: column;
         text-align: center;
+        gap: 8px;
     }
 
     .semEstilo {

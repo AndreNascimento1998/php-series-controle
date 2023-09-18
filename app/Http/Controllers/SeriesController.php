@@ -9,10 +9,11 @@ use function Psy\debug;
 
 class SeriesController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $series =  Serie::query()->orderBy('nome')->get();
-        return view('series.index')->with('series', $series);
+        $messagemSucesso = session('messagem.sucesso');
+        return view('series.index')->with('series', $series)->with('messagemSucesso', $messagemSucesso);
     }
 
     public function create()
@@ -22,11 +23,15 @@ class SeriesController extends Controller
 
     public function store(Request $request)
     {
-        $nomeSerie = $request->input('nome');
-        $serie = new Serie();
+        $serie = Serie::create($request->all());
+        $request->session()->flash('messagem.sucesso', "Série '{$serie->nome}' add com sucesso");
+        return to_route('series.index');
+    }
 
-        $serie->nome = $nomeSerie;
-        $serie->save();
-        return redirect('/series');
+    public function destroy(Request $request)
+    {
+        $series = Serie::find($request->id);
+        Serie::destroy($request->id);
+        return to_route('series.index')->with('messagem.sucesso', "Série '{$series->nome}' removida com sucesso");
     }
 }
