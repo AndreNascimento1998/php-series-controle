@@ -1,7 +1,43 @@
-<x-layout title="Séries">
-    <x-series.form :action="route('series.store')" :nome="old('nome')" :update="false" />
+<x-layout title="Nova Série">
+    <form action="{{route('series.store')}}" method="post" class="form">
+        @csrf
+
+        <label for="nome">Nome</label>
+        <input
+            type="text"
+            id="nome"
+            name="nome"
+            class="meu-input"
+            value="{{ old('nome')}}"
+        >
+
+        <label for="seasonsQty">N° Temporadas: </label>
+        <input
+            type="text"
+            id="seasonsQty"
+            name="seasonsQty"
+            class="meu-input"
+            value="{{ old('seasonsQty')}}"
+        >
+
+        <label for="episodesPerSeasons">Eps / Temporadas</label>
+        <input
+            type="text"
+            id="episodesPerSeasons"
+            name="episodesPerSeasons"
+            class="meu-input"
+            value="{{ old('episodesPerSeasons')}}"
+        >
+
+        <button type="submit" class="buttonAdd">Adicionar</button>
+    </form>
 </x-layout>
 <style>
+    .form {
+        display: flex;
+        flex-direction: column;
+    }
+
     .meu-input {
         background-color: #f0f0f0;
         border: 1px solid #ccc;
@@ -12,6 +48,7 @@
     }
 
     .buttonAdd {
+        max-width: 150px;
         background-color: #fff;
         color: #1246cd;
         border: 2px solid #1246cd;

@@ -1,30 +1,14 @@
 <x-layout title="Séries">
-    <div class="button">
-        <a href="{{route('series.create')}}" class="buttonAdd">Adicionar</a>
-
-        @isset($messagemSucesso)
-        <div>
-            {{$messagemSucesso}}
-        </div>
-        @endisset
-    </div>
     <div class="container">
         <div class="list">
-            @foreach ($series as $serie)
+            {{$seasons}}
+            @foreach ($seasons as $season)
                 <div class="listButton">
-                    <li class="semEstilo" style="width: 80%">
-                        <a href="{{route('seasons.index', $serie->id)}}">
-                            {{ $serie->nome }}
-                        </a>
-                    </li>
+                    <span class="semEstilo" style="width: 80%">
+                        Temporada = {{ $season->number }}
+                    </span>
                     <section style="display: flex">
-                        <a class="buttonDelete" href="{{route('series.edit', $serie->id)}}">Edit</a>
-
-                        <form action="{{route('series.destroy', $serie->id)}}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <button class="buttonDelete">X</button>
-                        </form>
+                        {{$season->episodes->count()}}
                     </section>
                 </div>
             @endforeach
